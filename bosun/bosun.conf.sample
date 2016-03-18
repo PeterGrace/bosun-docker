@@ -1,0 +1,2 @@
+tsdbHost = $env.TSDB_PORT_4242_TCP_ADDR:4242
+stateFile = /opt/bosun/data/bosun.state

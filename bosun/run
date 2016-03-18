@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ ! -e /opt/bosun/data/bosun.conf ]
+then 
+    echo "=========FIRST RUN========"
+    mkdir -p /opt/bosun/data/
+    cp /opt/bosun/bosun.conf.sample /opt/bosun/data/bosun.conf
+fi
+
+ENVFILE=/var/run/s6/container_environment/TSDB_PORT_4242_TCP_ADDR
+
+if [ -e $ENVFILE ]
+then
+    export TSDB_PORT_4242_TCP_ADDR=$(cat $ENVFILE)
+fi
+
+/opt/bosun/bosun -c /opt/bosun/data/bosun.conf
+
