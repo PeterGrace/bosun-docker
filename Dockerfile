@@ -4,7 +4,8 @@ FROM janeczku/alpine-kubernetes:3.2
 ENV \
     ALPINE_GLIBC_URL="https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/" \
     GLIBC_PKG="glibc-2.21-r2.apk" \
-    GLIBC_BIN_PKG="glibc-bin-2.21-r2.apk"
+    GLIBC_BIN_PKG="glibc-bin-2.21-r2.apk" \
+    BOSUN_VERSION="0.5.0-rc3"
 
 RUN \
     apk add --update -t deps wget ca-certificates openssl \
@@ -21,7 +22,7 @@ RUN \
 #Install bosun
 RUN apk-install bash
 RUN mkdir -p /opt/bosun /opt/bosun/data /etc/services.d/bosun
-ADD https://github.com/bosun-monitor/bosun/releases/download/0.5.0-rc2/bosun-linux-amd64 /opt/bosun/bosun
+ADD https://github.com/bosun-monitor/bosun/releases/download/${BOSUN_VERSION}/bosun-linux-amd64 /opt/bosun/bosun
 RUN chmod a+x /opt/bosun/bosun
 ADD bosun/bosun.conf.sample /opt/bosun/
 ADD bosun/run /etc/services.d/bosun/run
